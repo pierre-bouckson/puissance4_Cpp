@@ -123,7 +123,7 @@ class IHM {
 			string touche;
 			int choix = 0;
 			touche = getch();
-			if(touche=="s" || touche=="k") {choix = 10;};
+			if(touche=="z" || touche=="i") {choix = 10;};
 			if(touche=="q" || touche=="j") {choix =-1;};
 			if(touche=="d" || touche=="l") {choix =1;};
 
@@ -223,7 +223,7 @@ int main()
 		system("clear");
 		my_grille.afficher_choix(0,'X');
 		my_grille.afficher_grille(player1.lire_buffer(),player2.lire_buffer());
-		cout << "Player 1 WIN" << endl;
+		cout << "\x1b[31m" <<"Player 1 WIN" << "\x1b[0m" << endl;
 		while(1);
 	}
 	//Joueur 2
@@ -246,7 +246,7 @@ int main()
 		system("clear");
 		my_grille.afficher_choix(0,'O');
 		my_grille.afficher_grille(player1.lire_buffer(),player2.lire_buffer());
-		cout << "Player 2 WIN" << endl;
+		cout << "\x1b[34m" <<"Player 2 WIN" << "\x1b[0m" << endl;
 		while(1);
 	}
 	
