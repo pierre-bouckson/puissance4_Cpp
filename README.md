@@ -15,9 +15,15 @@ gcc puissance4.cpp -o puissance4
 
 ## Jouer
 
+Joueur 1 :
 -   `q` : se déplacer vers la gauche\
 -   `d` : se déplacer vers la droite\
--   `s` : valider le choix
+-   `z` : valider le choix
+
+Joueur 2 :
+-   `j` : se déplacer vers la gauche\
+-   `l` : se déplacer vers la droite\
+-   `i` : valider le choix
 
 Quand il y a un gagnant, utilisez **CTRL+C** pour quitter puis relancez
 `./puissance4`.
