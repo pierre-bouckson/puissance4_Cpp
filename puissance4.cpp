@@ -16,14 +16,19 @@ using namespace std;
 
 class player {
 	private:
-		bool buffer[6][7] = {0};
-
+		bool buffer[6][7] = {
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0}};
 
 
 
 	public:
 		int update_buffer(int x, bool buffer_jeux[6][7]){
-			for(int i=6;i>=0;i--){
+			for(int i=5;i>=0;--i){
 				if(buffer_jeux[i][x] == 0){
 					buffer[i][x]=1;
 					return 0;
@@ -66,9 +71,9 @@ class player {
 				cons_v = 0;
 			}
 			//Diagonal '/'
-			for(int i=0;i<6;i++)
+			for(int i=3;i<6;i++)
 			{
-				for(int j=0;j<7;j++){
+				for(int j=0;j<7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i-1][j+1]==1 && buffer[i-2][j+2]==1 
 						&& buffer[i-3][j+3]==1)
@@ -77,9 +82,9 @@ class player {
 				}
 			}
 			//Diagonal '\'
-			for(int i=0;i<6;i++)
+			for(int i=0;i<6-4;i++)
 			{
-				for(int j=0;j<7;j++){
+				for(int j=0;j<7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i+1][j+1]==1 && buffer[i+2][j+2]==1 
 						&& buffer[i+3][j+3]==1)
@@ -118,9 +123,9 @@ class IHM {
 			string touche;
 			int choix = 0;
 			touche = getch();
-			if(touche=="s") {choix = 10;};
-			if(touche=="q") {choix =-1;};
-			if(touche=="d") {choix =1;};
+			if(touche=="s" || touche=="k") {choix = 10;};
+			if(touche=="q" || touche=="j") {choix =-1;};
+			if(touche=="d" || touche=="l") {choix =1;};
 
 			return choix;
 		}
@@ -130,32 +135,29 @@ class grille
 	private:
 	
 	public:
-		void afficher_grille(bool buffer1[6][7],bool buffer2[6][7])
+		void afficher_grille(bool buffer1[6][7], bool buffer2[6][7])
 		{
 			cout << endl;
-			for(int i=0;i<13;i++){
-				if(i%2 == 0)
-				{		
-					for(int j=0;j<29;j++){
-						if(j%4 == 0){
-							cout << "+";
-						}else{
-							cout << "-";
-						}
-					}
-				}else{
-					for(int j=0;j<29;j++){
-						if(buffer1[i/2][(j/4)]==1 && j%4==2){
-							cout << "\x1b[31m" << "O" << "\x1b[0m";
-						}else if(buffer2[i/2][(j/4)]==1 && j%4==2){
-							cout << "\x1b[34m" << "X" << "\x1b[0m";
-						}
-						else if(j%4 != 0){
-							cout << " ";
-						}else{
+			for (int i = 0; i < 13; ++i) {
+				if (i % 2 == 0) {
+					for (int j = 0; j < 29; ++j)
+						cout << (j % 4 == 0 ? "+" : "-");
+				} else {
+					int row = i / 2;
+					for (int j = 0; j < 29; ++j) {
+						if (j % 4 == 2) {
+							int col = j / 4;      // 0..6
+							if (buffer1[row][col])
+								cout << "\x1b[31mO\x1b[0m";
+							else if (buffer2[row][col])
+								cout << "\x1b[34mX\x1b[0m";
+							else
+								cout << " ";
+						} else if (j % 4 == 0) {
 							cout << "|";
+						} else {
+							cout << " ";
 						}
-
 					}
 				}
 				cout << endl;
@@ -214,8 +216,8 @@ int main()
 		my_grille.afficher_choix(choix,'O');
 		my_grille.afficher_grille(player1.lire_buffer(), player2.lire_buffer());
 	}
-	jeux.update_buffer(choix-10,jeux.lire_buffer());
 	player1.update_buffer(choix-10,jeux.lire_buffer());
+	jeux.update_buffer(choix-10,jeux.lire_buffer());
 	my_grille.afficher_grille(player1.lire_buffer(),player2.lire_buffer());
 	if(player1.check_victory()){
 		system("clear");
@@ -237,8 +239,8 @@ int main()
 		my_grille.afficher_choix(choix,'X');
 		my_grille.afficher_grille(player1.lire_buffer(), player2.lire_buffer());
 	}
-	jeux.update_buffer(choix-10,jeux.lire_buffer());
 	player2.update_buffer(choix-10,jeux.lire_buffer());
+	jeux.update_buffer(choix-10,jeux.lire_buffer());
 	my_grille.afficher_grille(player1.lire_buffer(), player2.lire_buffer());
 	if(player2.check_victory()){
 		system("clear");
