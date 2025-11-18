@@ -43,7 +43,6 @@ class player {
 		{
 			int cons_h = 0;
 			int cons_v = 0;
-			int cons_d = 0;
 			//Hozizontal
 			for(int i=0;i<6;i++)
 			{
@@ -73,7 +72,7 @@ class player {
 			//Diagonal '/'
 			for(int i=3;i<6;i++)
 			{
-				for(int j=0;j<7-4;j++){
+				for(int j=0;j<=7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i-1][j+1]==1 && buffer[i-2][j+2]==1 
 						&& buffer[i-3][j+3]==1)
@@ -82,9 +81,9 @@ class player {
 				}
 			}
 			//Diagonal '\'
-			for(int i=0;i<6-4;i++)
+			for(int i=0;i<=6-4;i++)
 			{
-				for(int j=0;j<7-4;j++){
+				for(int j=0;j<=7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i+1][j+1]==1 && buffer[i+2][j+2]==1 
 						&& buffer[i+3][j+3]==1)
@@ -205,7 +204,7 @@ int main()
 	while(1)
 	{
 	system("clear");
-	choix = 0;
+	choix = 3;
 	my_grille.afficher_choix(choix,'O');
 	my_grille.afficher_grille(player1.lire_buffer(),player2.lire_buffer());
 	while(choix < 10){
