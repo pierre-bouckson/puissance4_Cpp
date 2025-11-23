@@ -72,7 +72,7 @@ class player {
 			//Diagonal '/'
 			for(int i=3;i<6;i++)
 			{
-				for(int j=0;j<=7-4;j++){
+				for(int j=0;j<7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i-1][j+1]==1 && buffer[i-2][j+2]==1 
 						&& buffer[i-3][j+3]==1)
@@ -81,9 +81,9 @@ class player {
 				}
 			}
 			//Diagonal '\'
-			for(int i=0;i<=6-4;i++)
+			for(int i=0;i<6-4;i++)
 			{
-				for(int j=0;j<=7-4;j++){
+				for(int j=0;j<7-4;j++){
 					if(buffer[i][j]==1){
 						if(buffer[i+1][j+1]==1 && buffer[i+2][j+2]==1 
 						&& buffer[i+3][j+3]==1)
